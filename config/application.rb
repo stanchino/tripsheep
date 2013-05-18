@@ -58,5 +58,13 @@ module Tripsheep
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    #OAuth2 configuration
+    config.devise_oauth2_providable.access_token_expires_in         = 15.minute # 15.minute default
+    config.devise_oauth2_providable.refresh_token_expires_in        = 1.month # 1.month default
+    config.devise_oauth2_providable.authorization_token_expires_in  = 1.minute # 1.minute default
+
+    #for Heroku deployment
+    config.assets.initialize_on_precompile = false
   end
 end

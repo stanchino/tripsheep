@@ -2,37 +2,66 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'thin'
+gem 'jquery-rails'
+#gem "therubyracer"
+gem 'slim'
+gem 'slim-rails'
+gem 'simple_form'
+gem 'countries'
+gem 'google-analytics-rails'
+gem 'devise'
+gem 'devise_oauth2_providable'
+gem 'faker', :require => false
+gem 'sass-rails',   '~> 3.2.3'
+gem 'bootstrap-sass', '~> 2.3.0.0'
+#gem 'aws-s3', '0.6.2', :require => 'aws/s3'
+#gem 'best_in_place'
+gem 'sprockets', '~> 2.0'
+#gem 'pdfkit'
+#gem 'phony_rails'
 
-gem 'pg'
-
-
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
-
   gem 'uglifier', '>= 1.0.3'
+  gem 'ejs'
 end
 
-gem 'jquery-rails'
+group :development, :staging, :production do
+  gem 'pg'
+end
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'sqlite3'
+  gem 'capybara', '2.0.3'
+  gem 'guard-rspec'
+#  gem 'launchy'
+#  gem 'rb-inotify', :require => false
+#  gem 'rb-fsevent', :require => false
+#  gem 'rb-fchange', :require => false
+#  gem 'terminal-notifier-guard'
+#  gem 'growl'
+  gem 'guard-rails-assets'
+  gem 'guard-livereload', require: false
+#  gem 'rb-fsevent', require: false
+  gem 'rack-livereload'
+  gem 'yajl-ruby'
+  gem 'guard-bundler'
+#  gem 'konacha'
+  gem 'rails-erd'
+end
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
+group :development do
+  gem 'better_errors'
+#  gem 'binding_of_caller'
+  gem 'debugger'
+end
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
+group :test do
+#  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot', :require => false
+end

@@ -1,4 +1,10 @@
 Tripsheep::Application.routes.draw do
+  root :to => 'index#index'
+  devise_for :admins
+
+  devise_for :users
+
+  mount Devise::Oauth2Providable::Engine => '/oauth'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
