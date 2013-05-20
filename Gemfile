@@ -4,7 +4,7 @@ gem 'rails', '3.2.12'
 
 gem 'thin'
 gem 'jquery-rails'
-#gem "therubyracer"
+gem "therubyracer"
 gem 'slim'
 gem 'slim-rails'
 gem 'simple_form'

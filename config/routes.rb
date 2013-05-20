@@ -3,6 +3,16 @@ Tripsheep::Application.routes.draw do
   devise_for :admins
 
   devise_for :users
+  
+  as :user do
+    get "/sign_in" => "devise/sessions#new"
+    post "/sign_in" => "devise/sessions#create"
+
+    delete "/logout" => "devise/sessions#destroy"
+
+    get "/sign_up" => "devise/registrations#new"
+    post "/sign_up" => "devise/registrations#create"
+  end
 
   mount Devise::Oauth2Providable::Engine => '/oauth'
   # The priority is based upon order of creation:

@@ -1,0 +1,50 @@
+doctype html
+html lang="en"
+  head
+    title= content_for?(:title) ? yield(:title) : 'Tripsheep'
+    meta charset="utf-8"
+    meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1.0" name="viewport"
+
+    = stylesheet_link_tag "application", :media => "all"
+    = yield(:stylesheet_links_content) if content_for?(:stylesheet_links_content)
+
+    = csrf_meta_tags
+    /! Le HTML5 shim, for IE6-8 support of HTML elements
+    /![if lt IE 9]
+      | <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+
+  body
+    .navbar.navbar-static-top
+      .navbar-inner
+        .container
+          .header.pull-left
+            a.brand href="/" Logo
+            span powered by TripSheep
+          ul.nav.pull-right.header-nav
+            = header_nav
+
+    .container
+      - if @title.present? || content_for?(:title_content)
+        .page-title
+          - if @title.present?
+            h4.pull-left= @title
+          .pull-right
+            .title-content
+              = yield(:title_content) if content_for?(:title_content)
+      .row
+        .span12
+          = bootstrap_flash
+
+      .row
+        .span12
+          = content_for?(:content) ? yield(:content) : yield
+
+      /! /row
+      hr
+      footer
+        p © TripSheep 2013
+    = yield(:templates) if content_for?(:templates)
+    = javascript_include_tag "application"
+    = yield(:application_modals) if content_for?(:application_modals)
+

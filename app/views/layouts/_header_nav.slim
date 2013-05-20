@@ -1,0 +1,12 @@
+- for item in items
+  - if item[:dropdown]
+    li.dropdown
+      = link_to item[:label], "#", class: 'dropdown-toggle', :'data-toggle' => 'dropdown'
+      ul.dropdown-menu
+        - for sub_item in item[:dropdown]
+          li
+            = link_to sub_item[:label], sub_item[:path]
+  - else
+    - li_attr_hash = item[:html] || {}
+    li *li_attr_hash
+      = link_to item[:label], item[:path], (item[:path_options] || {})

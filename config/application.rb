@@ -27,11 +27,11 @@ module Tripsheep
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :en
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -59,12 +59,15 @@ module Tripsheep
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    #OAuth2 configuration
+    # Setup Bootstrap options
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+    # OAuth2 configuration
     config.devise_oauth2_providable.access_token_expires_in         = 15.minute # 15.minute default
     config.devise_oauth2_providable.refresh_token_expires_in        = 1.month # 1.month default
     config.devise_oauth2_providable.authorization_token_expires_in  = 1.minute # 1.minute default
 
-    #for Heroku deployment
+    # For Heroku deployment
     config.assets.initialize_on_precompile = false
   end
 end
