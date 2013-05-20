@@ -9,7 +9,20 @@
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore database config file.
+/config/database.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/tmp/*
+.DS_Store
+
+public/assets/
+!public/assets/manifest.yml
+.env
+.sass-cache
+database.yml
+
