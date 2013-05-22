@@ -32,13 +32,10 @@ html lang="en"
           .pull-right
             .title-content
               = yield(:title_content) if content_for?(:title_content)
-      .row
-        .span12
-          = bootstrap_flash
+      = bootstrap_flash
 
-      .row
-        .span12
-          = content_for?(:content) ? yield(:content) : yield
+      .span12
+        = content_for?(:content) ? yield(:content) : yield
 
       /! /row
       hr
@@ -47,4 +44,5 @@ html lang="en"
     = yield(:templates) if content_for?(:templates)
     = javascript_include_tag "application"
     = yield(:application_modals) if content_for?(:application_modals)
+    = yield(:scripts)
 

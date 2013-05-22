@@ -1,0 +1,27 @@
+p#notice = notice
+
+p
+  strong Address:
+  = @location.address
+p
+  strong Address1:
+  = @location.address1
+p
+  strong City:
+  = @location.city
+p
+  strong State:
+  = @location.state
+p
+  strong Zip:
+  = @location.zip
+p
+  strong Max:
+  = @location.max
+p
+  strong Country:
+  = @location.country
+
+= link_to 'Edit', edit_location_path(@location)
+'|
+= link_to 'Back', locations_path

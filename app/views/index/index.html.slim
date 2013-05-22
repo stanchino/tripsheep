@@ -1,1 +1,9 @@
-div TripSheep
+.row
+  .span3
+    span Form
+  .span9
+    =gmaps({"map_options" => { "type" => "SATELLITE", "center_latitude" => 0, "center_longitude" => 180, "zoom" => 15, "auto_adjust" => true, "labels" => true },
+      "direction"   => { "data" => { "from" => "toulon, france", "to" => "paris, france"}, "options" => {"waypoints" => ["toulouse, france", "brest, france"], "travelMode" => "DRIVING", "display_panel" => true, "panel_id" => "instructions"} } })
+.row
+  #instructions
+

@@ -1,4 +1,7 @@
 Tripsheep::Application.routes.draw do
+  resources :locations
+
+
   root :to => 'index#index'
   devise_for :admins
 
