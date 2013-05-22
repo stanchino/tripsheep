@@ -20,6 +20,7 @@ gem 'bootstrap-sass', '~> 2.3.0.0'
 gem 'sprockets', '~> 2.0'
 #gem 'pdfkit'
 #gem 'phony_rails'
+gem 'gmaps4rails'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
