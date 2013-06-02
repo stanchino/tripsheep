@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130522133819) do
+ActiveRecord::Schema.define(:version => 20130524151721) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(:version => 20130522133819) do
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
   create_table "locations", :force => true do |t|
-    t.integer  "user_id"
     t.string   "address"
     t.string   "address1"
     t.string   "city"
@@ -102,6 +101,15 @@ ActiveRecord::Schema.define(:version => 20130522133819) do
   add_index "oauth2_refresh_tokens", ["token"], :name => "index_oauth2_refresh_tokens_on_token", :unique => true
   add_index "oauth2_refresh_tokens", ["user_id"], :name => "index_oauth2_refresh_tokens_on_user_id"
 
+  create_table "trips", :force => true do |t|
+    t.string   "name"
+    t.datetime "start"
+    t.datetime "finish"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -121,5 +129,20 @@ ActiveRecord::Schema.define(:version => 20130522133819) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "waypoints", :force => true do |t|
+    t.integer  "trip_id"
+    t.integer  "location_id"
+    t.datetime "arrival_date"
+    t.datetime "departure_date"
+    t.string   "type"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "waypoints", ["arrival_date"], :name => "index_waypoints_on_arrival_date"
+  add_index "waypoints", ["departure_date"], :name => "index_waypoints_on_departure_date"
+  add_index "waypoints", ["trip_id", "location_id"], :name => "index_waypoints_on_trip_id_and_location_id"
+  add_index "waypoints", ["type"], :name => "index_waypoints_on_type"
 
 end

@@ -1,6 +1,17 @@
 .row
   .span3
-    span Form
+    = simple_form_for(@trip) do |f|
+      = f.simple_fields_for(:waypoints) do |wp|
+        = wp.input :id, as: :hidden
+        = wp.simple_fields_for(:location) do |l|
+          = l.input :id, as: :hidden
+          = l.input :address
+      - new_waypoint = f.object.class.reflect_on_association(:waypoints).klass.new
+      = f.fields_for(:waypoints, new_waypoint, child_index: "new_#{:waypoints}") do |nwp|
+        - new_location = nwp.object.class.reflect_on_association(:location).klass.new
+        = nwp.fields_for(:location, new_location, child_index: "new_#{:location}") do |l|
+          = l.input :address, label: "Add Destination"
+      = f.submit
   .span9
     =gmaps({"map_options" => { "type" => "SATELLITE", "center_latitude" => 0, "center_longitude" => 180, "zoom" => 15, "auto_adjust" => true, "labels" => true },
       "direction"   => { "data" => { "from" => "toulon, france", "to" => "paris, france"}, "options" => {"waypoints" => ["toulouse, france", "brest, france"], "travelMode" => "DRIVING", "display_panel" => true, "panel_id" => "instructions"} } })

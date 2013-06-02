@@ -1,0 +1,19 @@
+- form_builder = nil
+= simple_form_for @trip do |f|
+  - form_builder = f
+  - if @trip.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@trip.errors.count, "error")} when saving the trip:"
+      ul
+        - @trip.errors.full_messages.each do |message|
+          li = message
+  = render 'new_waypoint_field', builder: f, label: 'Departure'
+  #waypoints
+  = render 'new_waypoint_field', builder: f, label: 'Arrival'
+  = link_to "Add Waypoint", "#", class: 'btn btn-primary',
+    :'data-trigger' => 'new-waypoint', :'data-target' => 'waypoints'
+  = f.submit class: 'btn btn-success',
+    value: @trip.new_record? ? 'Start' : 'Change'
+    
+script#new_waypoint_template type="text/template"
+  = render 'new_waypoint_field', builder: form_builder, label: 'Waypoint'

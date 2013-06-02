@@ -4,14 +4,19 @@ class Location < ActiveRecord::Base
     :msg => "Sorry, the address was not found"
 
   attr_accessible :address, :address1, :city, :country, :state, :zip, :order, :longitude, :latitude
+  validates_uniqueness_of :address
+  validates_uniqueness_of :latitude, :longitude
+
+  has_many :waypoints
+  has_many :trips, through: :waypoints
   
-  belongs_to :user
   
   def full_address
-    "#{self.address}, #{self.city}, #{self.country}" 
+    [self.address, self.city, self.country].find_all{|item| !item.blank?}.join(", ")
   end
 
   def geocode?
     (!address.blank? && (latitude.blank? || longitude.blank?)) || address_changed?
   end
+
 end

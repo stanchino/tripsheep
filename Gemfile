@@ -16,7 +16,7 @@ gem 'faker', :require => false
 gem 'sass-rails',   '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.3.0.0'
 #gem 'aws-s3', '0.6.2', :require => 'aws/s3'
-#gem 'best_in_place'
+gem 'best_in_place'
 gem 'sprockets', '~> 2.0'
 #gem 'pdfkit'
 #gem 'phony_rails'
@@ -56,7 +56,7 @@ end
 
 group :development do
   gem 'better_errors'
-#  gem 'binding_of_caller'
+  gem 'binding_of_caller'
   gem 'debugger'
 end
 

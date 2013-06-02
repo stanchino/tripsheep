@@ -1,0 +1,22 @@
+.row
+  .span3
+    = simple_form_for(@trip) do |f|
+      = f.simple_fields_for(:waypoints) do |wp|
+        = wp.input :id, as: :hidden
+        = wp.simple_fields_for(:location) do |l|
+          = l.input :id, as: :hidden
+          = l.input :address
+      - new_waypoint = f.object.class.reflect_on_association(:waypoints).klass.new
+      = f.fields_for(:waypoints, new_waypoint, child_index: "new_#{:waypoints}") do |nwp|
+        - new_location = nwp.object.class.reflect_on_association(:location).klass.new
+        = nwp.fields_for(:location, new_location, child_index: "new_#{:location}") do |l|
+          = l.input :address, label: "Add Destination"
+      = f.submit
+  .span9
+    =gmaps(@map_options)
+.row
+  #instructions
+
+= link_to 'Edit', edit_trip_path(@trip)
+'|
+= link_to 'Back', trips_path

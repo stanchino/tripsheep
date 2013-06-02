@@ -1,8 +1,9 @@
 Tripsheep::Application.routes.draw do
+  root :to => 'trips#new'
+  resources :trips
   resources :locations
 
 
-  root :to => 'index#index'
   devise_for :admins
 
   devise_for :users
