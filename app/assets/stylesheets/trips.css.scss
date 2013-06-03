@@ -1,3 +1,38 @@
-// Place all the styles related to the trips controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.ui-autocomplete-loading {
+  background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+.destination-placeholder {
+  width:225px;
+  margin-bottom:10px;
+  position:relative;
+  input.string {
+    width:195px;
+    margin:0;
+    padding:7px 20px 7px 5px;
+  }
+  .icon {
+    display:block;
+    height:15px;
+    width:15px;
+    position:absolute;
+    right:3px;
+  }
+  .icon:hover {
+    background-color:inherit;
+    color:inherit;
+  }
+  .add-destination {
+    bottom:3px;
+  }
+  .remove-destination {
+    top:3px;
+  }
+  /*
+  .icon-remove {
+    display:block;
+    height:30px;
+    background-position-y:7px;
+    margin-left:5px;
+  }
+  */
+}

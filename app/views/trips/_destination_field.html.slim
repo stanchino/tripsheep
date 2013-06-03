@@ -1,0 +1,17 @@
+.destination-placeholder.clearfix
+  = builder.fields_for(:destinations, destination, child_index: child_index, class: "destination ui-widget") do |wp|
+    - location = destination.location || wp.object.class.reflect_on_association(:location).klass.new
+    - if !destination.new_record?
+      = wp.input :id, as: :hidden
+    = wp.fields_for(:location, location) do |l|
+        - if !location.new_record?
+          = l.input :id, as: :hidden
+        = l.input :address, placeholder: label, label: false,
+          input_html: {class: "autocomplete"},
+          wrapper_html: {class: 'pull-left'}
+        -if !destination.first? && (!destination.last? || @trip.destinations.size > 2)
+          =link_to raw('<i class="icon-minus-sign"></i>'),
+            destinations_path(@destination), remote: true, method: :destroy,
+            class: 'icon remove-destination'
+        =link_to raw('<i class="icon-plus-sign"></i>'), '#',
+          class: 'icon add-destination'

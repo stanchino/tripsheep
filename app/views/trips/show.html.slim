@@ -1,19 +1,59 @@
+- @title = @trip.name
 .row
   .span3
-    = simple_form_for(@trip) do |f|
-      = f.simple_fields_for(:waypoints) do |wp|
-        = wp.input :id, as: :hidden
-        = wp.simple_fields_for(:location) do |l|
-          = l.input :id, as: :hidden
-          = l.input :address
-      - new_waypoint = f.object.class.reflect_on_association(:waypoints).klass.new
-      = f.fields_for(:waypoints, new_waypoint, child_index: "new_#{:waypoints}") do |nwp|
-        - new_location = nwp.object.class.reflect_on_association(:location).klass.new
-        = nwp.fields_for(:location, new_location, child_index: "new_#{:location}") do |l|
-          = l.input :address, label: "Add Destination"
-      = f.submit
+    = render 'form'
   .span9
     =gmaps(@map_options)
+.row
+  h3 Trip schedule
+  table.table.table-bordered.table-hover
+    thead
+      th Date
+      th Place
+      th Distance
+      th Time
+      th Schedule
+      th Price
+      th Notes
+    tbody
+      - @trip.intervals.each do |i|
+        tr
+          td
+            =i[0].departure_date
+          td
+            ="#{i[0].address} - #{i[1].address}"
+          td 0km
+          td 9h30m
+          td 05:00am-14:30pm
+          td $66
+          td
+            p Stop in ...
+            p Have breakfast ...
+
+  h3 Places
+  table.table.table-bordered.table-hover
+    thead
+      th Date
+      th Place
+      th # nights
+      th Price
+      th Notes
+      th
+    tbody
+      - @trip.destinations.each do |w|
+        tr
+          td
+            =w.arrival_date
+          td
+            =w.address
+          td 3
+          td $45
+          td
+            p Visit something ...
+            p Buy a ticket for ...
+          td
+            =link_to raw('<span class="icon-remove"></span>'), '#', remote: true
+      
 .row
   #instructions
 

@@ -10,7 +10,6 @@ class CreateLocations < ActiveRecord::Migration
       t.float :latitude
       t.float :longitude
       t.boolean :gmaps, default: false      
-      t.integer :order
 
       t.timestamps
     end

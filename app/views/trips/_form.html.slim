@@ -7,13 +7,21 @@
       ul
         - @trip.errors.full_messages.each do |message|
           li = message
-  = render 'new_waypoint_field', builder: f, label: 'Departure'
-  #waypoints
-  = render 'new_waypoint_field', builder: f, label: 'Arrival'
-  = link_to "Add Waypoint", "#", class: 'btn btn-primary',
-    :'data-trigger' => 'new-waypoint', :'data-target' => 'waypoints'
-  = f.submit class: 'btn btn-success',
-    value: @trip.new_record? ? 'Start' : 'Change'
+  = render 'destination_field', builder: f, label: 'Departure',
+    child_index: 0,
+    destination: @trip.destinations.first || f.object.class.reflect_on_association(:destinations).klass.new
+  #destinations
+    - @trip.destinations.each_with_index do |wp, i|
+      - if i > 0 && i < @trip.destinations.size - 1
+        = render 'destination_field', builder: f, label: wp.address, child_index: i, destination: wp
+  = render 'destination_field', builder: f, label: 'Arrival',
+    child_index: @trip.destinations.size - 1 || 1,
+    destination: @trip.destinations.last || f.object.class.reflect_on_association(:destinations).klass.new
+  = link_to "Add Waypoint", "#", class: 'btn btn-primary pull-left',
+    :'data-trigger' => 'new-destination', :'data-target' => 'destinations'
+  = f.submit class: 'btn btn-success pull-right', value: @trip.new_record? ? 'Start' : 'Save'
     
-script#new_waypoint_template type="text/template"
-  = render 'new_waypoint_field', builder: form_builder, label: 'Waypoint'
+script#new_destination_template type="text/template"
+  = render 'destination_field', builder: form_builder, label: 'Waypoint',
+    child_index: 'new_destination',
+    destination: form_builder.object.class.reflect_on_association(:destinations).klass.new

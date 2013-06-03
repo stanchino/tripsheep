@@ -1,7 +1,7 @@
 Tripsheep::Application.routes.draw do
   root :to => 'trips#new'
   resources :trips
-  resources :locations
+  resources :destinations
 
 
   devise_for :admins

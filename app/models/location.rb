@@ -7,8 +7,8 @@ class Location < ActiveRecord::Base
   validates_uniqueness_of :address
   validates_uniqueness_of :latitude, :longitude
 
-  has_many :waypoints
-  has_many :trips, through: :waypoints
+  has_many :destinations
+  has_many :trips, through: :destinations
   
   
   def full_address

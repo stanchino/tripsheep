@@ -31,6 +31,20 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
   add_index "admins", ["email"], :name => "index_admins_on_email", :unique => true
   add_index "admins", ["reset_password_token"], :name => "index_admins_on_reset_password_token", :unique => true
 
+  create_table "destinations", :force => true do |t|
+    t.integer  "position"
+    t.integer  "trip_id"
+    t.integer  "location_id"
+    t.datetime "departure_date"
+    t.datetime "arrival_date"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "destinations", ["arrival_date"], :name => "index_destinations_on_arrival_date"
+  add_index "destinations", ["departure_date"], :name => "index_destinations_on_departure_date"
+  add_index "destinations", ["trip_id", "location_id"], :name => "index_destinations_on_trip_id_and_location_id"
+
   create_table "locations", :force => true do |t|
     t.string   "address"
     t.string   "address1"
@@ -41,7 +55,6 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "gmaps",      :default => false
-    t.integer  "order"
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
@@ -103,8 +116,6 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
 
   create_table "trips", :force => true do |t|
     t.string   "name"
-    t.datetime "start"
-    t.datetime "finish"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -129,20 +140,5 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-
-  create_table "waypoints", :force => true do |t|
-    t.integer  "trip_id"
-    t.integer  "location_id"
-    t.datetime "arrival_date"
-    t.datetime "departure_date"
-    t.string   "type"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  add_index "waypoints", ["arrival_date"], :name => "index_waypoints_on_arrival_date"
-  add_index "waypoints", ["departure_date"], :name => "index_waypoints_on_departure_date"
-  add_index "waypoints", ["trip_id", "location_id"], :name => "index_waypoints_on_trip_id_and_location_id"
-  add_index "waypoints", ["type"], :name => "index_waypoints_on_type"
 
 end

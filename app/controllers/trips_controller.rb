@@ -21,6 +21,8 @@ class TripsController < ApplicationController
   # GET /trips/1.json
   def show
     @trip = Trip.find(params[:id])
+    @map_options = @map_options[:defaults] 
+    @map_options[:direction] = @trip.directions
 
     respond_to do |format|
       format.html # show.html.erb
@@ -68,7 +70,7 @@ class TripsController < ApplicationController
 
     respond_to do |format|
       if @trip.update_attributes(params[:trip])
-        format.html { redirect_to root_path(@trip), notice: 'Trip was successfully updated.' }
+        format.html { redirect_to trip_path(@trip), notice: 'Trip was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

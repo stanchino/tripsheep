@@ -24,17 +24,18 @@ html lang="en"
             = header_nav
 
     .container
+      = bootstrap_flash
       - if @title.present? || content_for?(:title_content)
         .page-title
           - if @title.present?
-            h4.pull-left= @title
-          .pull-right
-            .title-content
-              = yield(:title_content) if content_for?(:title_content)
-      = bootstrap_flash
+            h3.pull-left= @title
+          - if content_for?(:title_content)
+            .pull-right
+              .title-content
+                = yield(:title_content) if content_for?(:title_content)
 
-      .span12
-        = content_for?(:content) ? yield(:content) : yield
+    .container
+      = content_for?(:content) ? yield(:content) : yield
 
       /! /row
       hr

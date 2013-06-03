@@ -4,8 +4,8 @@ class ControllerConstants
       defaults: {
         map_options: {
           "type" => "ROADMAP",
-          "center_latitude" => 0,
-          "center_longitude" => 0,
+          "center_latitude" => 180,
+          "center_longitude" => 180,
           "zoom" => 17,
           "auto_adjust" => true,
           "labels" => true,

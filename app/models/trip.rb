@@ -1,25 +1,34 @@
 class Trip < ActiveRecord::Base
-  attr_accessible :name, :start, :finish, :waypoints, :waypoints_attributes
-  has_many :waypoints
-  accepts_nested_attributes_for :waypoints
+  attr_accessible :name, :start, :finish, :destinations, :destinations_attributes
+  has_many :destinations
+  accepts_nested_attributes_for :destinations
   
-  has_many :locations, through: :waypoints
+  has_many :locations, through: :destinations
   
   def name
     "From #{self.locations.first.address} to #{self.locations.last.address}" unless
       self.locations.first.nil? or self.locations.last.nil?
   end
- 
-=begin
-  def waypoints_attributes=(hash)
-    hash.each do |sequence,attributes|
-      location = Location.first_or_initialize(:address => attributes[:location_attributes][])
-      unless location.new_record?
-        attributes[:location_id] = location.id
-        attributes.delete(:location_attributes) 
-      end
-      waypoints << Waypoint.new(attributes)
+  
+  def intervals
+    intervals = []
+    self.destinations.each_with_index do |w, i|
+      intervals << [w, self.destinations[i+1]] unless self.destinations[i+1].nil?
     end
+    return intervals
   end
-=end
+  
+  def directions
+    { 
+      :data => { 
+        :from => self.destinations.first.address,
+        :to => self.destinations.last.address
+      }, 
+      :options => { 
+        :destinations => self.destinations[1..-1].map{|w| w.address},
+        :display_panel => true, 
+        :panel_id => "instructions"
+      } 
+    }
+  end
 end
