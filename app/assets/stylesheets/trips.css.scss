@@ -4,15 +4,20 @@
   position:relative;
 }
 
+input.autocomplete {
+  margin-left:-1px;
+}
+
 .first {
   .autocomplete {
-    width:232px;
+    width:150px;
   } 
 }
 
 .last {
-  .autocomplete {
-    width:258px;
+  input.autocomplete {
+    width:180px;
+    border-radius: 0 4px 4px 0;
   }
 }
 

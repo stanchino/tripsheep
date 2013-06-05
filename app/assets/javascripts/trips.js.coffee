@@ -29,7 +29,10 @@ $ ->
       datetimepicker().
       off('changeDate').
       on 'changeDate', (event) =>
-        $(event.target).data('datetimepicker').hide()
+        $(event.target).
+        datetimepicker('hide').
+        next('input[type="text"]').
+        val($.datepicker.formatDate('M dd', event.date))
 
     bind_add_destination: ->
       $(@selectors.new_destination_link).

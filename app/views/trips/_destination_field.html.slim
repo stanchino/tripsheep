@@ -1,6 +1,6 @@
 =simple_fields_for(@trip) do |f|
   .destination-placeholder.clearfix class="#{'first' if destination.first?} #{'last' if destination.last?}"
-    = f.simple_fields_for(:destinations, destination, child_index: destination.position, class: "destination ui-widget") do |wp|
+    = f.simple_fields_for(:destinations, destination, child_index: destination.id, class: "destination ui-widget") do |wp|
       - location = destination.location || wp.object.class.reflect_on_association(:location).klass.new
       = wp.input :id, as: :hidden, wrapper: false
       = wp.fields_for(:location, location) do |l|
@@ -10,10 +10,13 @@
             .input-prepend.date title="Departure Date"
               span.add-on
                 i data-time-icon='icon-time' data-date-icon='icon-calendar' class='icon-calendar'
-              = wp.input_field :departure_date, as: :hidden
+              = wp.input_field :departure_date, as: :hidden, :"data-format" => "yyyy-MM-dd hh:mm:ss" 
+            = text_field_tag :departure_date_formatted,
+              destination.departure_date.respond_to?(:to_time) ? destination.departure_date.to_time.strftime('%b %d') : '',
+              class: 'span1'
             = l.input_field :address,
               placeholder: "#{destination.first? ? 'Departure' : 'Destination'}",
-              class: 'span3 autocomplete',
+              class: 'span2 autocomplete',
               tabindex: destination.position
             -if !destination.first? && !destination.last?
               = link_to raw('<i class="icon-minus-sign"></i>'),
