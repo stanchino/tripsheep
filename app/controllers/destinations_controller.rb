@@ -1,5 +1,6 @@
 class DestinationsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :get_trip
 
   # GET /destinations
   # GET /destinations.json
@@ -26,7 +27,7 @@ class DestinationsController < ApplicationController
   # GET /destinations/new
   # GET /destinations/new.json
   def new
-    @destination = Destination.new
+    @destination = @trip.destinations.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,11 +43,12 @@ class DestinationsController < ApplicationController
   # POST /destinations
   # POST /destinations.json
   def create
-    @destination = Destination.new(params[:destination])
+    @destination = @trip.destinations.build
+    @destination.insert_at(params[:position])
 
     respond_to do |format|
       if @destination.save
-        format.html { redirect_to @destination, notice: 'Destination was successfully created.' }
+        format.html { render partial: "trips/destination_field", locals: { destination: @destination } }
         format.json { render json: @destination, status: :created, destination: @destination }
       else
         format.html { render action: "new" }
@@ -78,8 +80,12 @@ class DestinationsController < ApplicationController
     @destination.destroy
 
     respond_to do |format|
-      format.html { redirect_to destinations_url }
+      format.html { redirect_to trip_path(params[:trip_id]) }
       format.json { head :no_content }
     end
+  end
+  
+  def get_trip
+    @trip = Trip.find(params[:trip_id])
   end
 end

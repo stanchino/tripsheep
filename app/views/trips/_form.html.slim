@@ -1,27 +1,14 @@
-- form_builder = nil
-= simple_form_for @trip do |f|
-  - form_builder = f
+= simple_form_for(@trip, html: {class: 'form-inline', id: 'destinations'}) do |f|
   - if @trip.errors.any?
     #error_explanation
       h2 = "#{pluralize(@trip.errors.count, "error")} when saving the trip:"
       ul
         - @trip.errors.full_messages.each do |message|
           li = message
-  = render 'destination_field', builder: f, label: 'Departure',
-    child_index: 0,
-    destination: @trip.destinations.first || f.object.class.reflect_on_association(:destinations).klass.new
-  #destinations
-    - @trip.destinations.each_with_index do |wp, i|
-      - if i > 0 && i < @trip.destinations.size - 1
-        = render 'destination_field', builder: f, label: wp.address, child_index: i, destination: wp
-  = render 'destination_field', builder: f, label: 'Arrival',
-    child_index: @trip.destinations.size - 1 || 1,
-    destination: @trip.destinations.last || f.object.class.reflect_on_association(:destinations).klass.new
-  = link_to "Add Waypoint", "#", class: 'btn btn-primary pull-left',
-    :'data-trigger' => 'new-destination', :'data-target' => 'destinations'
-  = f.submit class: 'btn btn-success pull-right', value: @trip.new_record? ? 'Start' : 'Save'
-    
-script#new_destination_template type="text/template"
-  = render 'destination_field', builder: form_builder, label: 'Waypoint',
-    child_index: 'new_destination',
-    destination: form_builder.object.class.reflect_on_association(:destinations).klass.new
+  - @trip.destinations.each do |destination|
+    = render 'trips/destination_field', destination: destination
+  = button_tag type: :submit, class: "btn btn-success" do
+    -if @trip.new_record?
+      =raw('<i class="icon-plus-sign icon-white"></i> Start')
+    -else
+      =raw('<i class="icon-ok-sign icon-white"></i> Save')

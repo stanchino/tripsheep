@@ -1,13 +1,27 @@
-class Waypoint < ActiveRecord::Base
-  attr_accessible :id, :arrival_date, :departure_date, :location, :location_attributes
+class Destination < ActiveRecord::Base
+  attr_accessible :id, :arrival_date, :departure_date, :location, :location_attributes, :position
 
   belongs_to :trip
   belongs_to :location
 
   accepts_nested_attributes_for :location
   
+  delegate :address, to: :location, prefix: false
+  
+  acts_as_list scope: :trip
+  default_scope order(:position)
+  
+  def is_removable?
+    !self.first? && !self.last?
+  end
+
   def location_attributes=(hash)
-    addr = Gmaps4rails.geocode(hash[:address])
-    self.location = Location.find_or_create_by_address(:address => addr.first[:matched_address])
+    if hash[:id].nil?
+      addr = Gmaps4rails.geocode(hash[:address]).pop()
+      self.location = Location.find_by_address(addr[:matched_address])
+      if self.location.nil?
+        self.create_location!(:address => addr[:matched_address])
+      end
+    end
   end
 end

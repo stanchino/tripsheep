@@ -1,21 +1,31 @@
 class Trip < ActiveRecord::Base
-  attr_accessible :name, :start, :finish, :destinations, :destinations_attributes
+  PENDING = 'pending'
+  SAVED = 'saved'
+  
+  attr_accessible :name, :start, :finish, :destinations, :destinations_attributes, :status
+
   has_many :destinations
   accepts_nested_attributes_for :destinations
   
   has_many :locations, through: :destinations
+
+  before_create :add_destinations
   
   def name
     "From #{self.locations.first.address} to #{self.locations.last.address}" unless
       self.locations.first.nil? or self.locations.last.nil?
   end
-  
+
   def intervals
     intervals = []
     self.destinations.each_with_index do |w, i|
       intervals << [w, self.destinations[i+1]] unless self.destinations[i+1].nil?
     end
     return intervals
+  end
+  
+  def waypoints
+    self.destinations[1..-1]
   end
   
   def directions
@@ -25,10 +35,15 @@ class Trip < ActiveRecord::Base
         :to => self.destinations.last.address
       }, 
       :options => { 
-        :destinations => self.destinations[1..-1].map{|w| w.address},
+        :waypoints => self.waypoints.map{ |w| w.address },
         :display_panel => true, 
         :panel_id => "instructions"
       } 
     }
   end
+  
+  private
+    def add_destinations
+      self.destinations << [Destination.new(:position => 1), Destination.new(:position => 2)]
+    end
 end

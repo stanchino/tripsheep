@@ -1,5 +1,5 @@
 @import "bootstrap";
-
+@import 'bootstrap-datetimepicker';
 
 /* ###########################################
                    VARIABLES
@@ -35,7 +35,11 @@ a.btn:visited {
   color:white;
 }
 
-.inline-editable{
+.ui-autocomplete-loading {
+  background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+
+.inline-editable {
   /*
   span:hover{
     background-color: #dff0d8;
@@ -52,6 +56,7 @@ a.btn:visited {
     }
   }
 }
+
 .purr {
   position:fixed;
   top:50%;
@@ -62,4 +67,3 @@ a.btn:visited {
   -webkit-border-radius: 4px;
   &:first-letter { text-transform: uppercase; }
 }
-

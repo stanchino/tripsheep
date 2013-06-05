@@ -15,4 +15,5 @@
 //= require jquery-ui.min
 //= require jquery.purr
 //= require bootstrap
+//= require bootstrap-datetimepicker
 //= require_tree .

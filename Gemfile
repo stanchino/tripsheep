@@ -22,6 +22,7 @@ gem 'sprockets', '~> 2.0'
 #gem 'phony_rails'
 gem 'gmaps4rails'
 gem 'acts_as_list'
+gem 'bootstrap-datetimepicker-rails'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
