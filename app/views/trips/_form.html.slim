@@ -1,12 +1,12 @@
-= simple_form_for(@trip, html: {class: 'form-inline', id: 'destinations'}) do |f|
+= simple_form_for(@trip, html: {class: 'form-inline', id: 'destinations'}, remote: true, validate: true) do |f|
   - if @trip.errors.any?
     #error_explanation
       h2 = "#{pluralize(@trip.errors.count, "error")} when saving the trip:"
       ul
         - @trip.errors.full_messages.each do |message|
           li = message
-  - @trip.destinations.each do |destination|
-    = render 'trips/destination_field', destination: destination
+  - @trip.intervals.each do |interval|
+    = render 'trips/interval', from: interval[:first], to: interval[:last]
   = button_tag type: :submit, class: "btn btn-success" do
     -if @trip.new_record?
       =raw('<i class="icon-plus-sign icon-white"></i> Start')

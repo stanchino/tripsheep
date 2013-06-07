@@ -7,13 +7,13 @@
           - if !location.new_record?
             = l.input :id, as: :hidden, wrapper: false
           .input-append.input-prepend
-            .input-prepend.date title="Departure Date"
-              span.add-on
-                i data-time-icon='icon-time' data-date-icon='icon-calendar' class='icon-calendar'
-              = wp.input_field :departure_date, as: :hidden, :"data-format" => "yyyy-MM-dd hh:mm:ss" 
-            = text_field_tag :departure_date_formatted,
+            .input-prepend title="Departure Date"
+            = link_to raw('<i class="icon-calendar"></i>'), '#', class: "add-on", id: "datepicker-trigger-#{destination.id}"
+            = wp.input_field :departure_date, as: :hidden
+            = text_field_tag :departure_date,
               destination.departure_date.respond_to?(:to_time) ? destination.departure_date.to_time.strftime('%b %d') : '',
-              class: 'span1'
+              id: "datepicker-#{destination.id}", class: 'datepicker span1',
+              :'data-datepicker-trigger' => "datepicker-trigger-#{destination.id}"
             = l.input_field :address,
               placeholder: "#{destination.first? ? 'Departure' : 'Destination'}",
               class: 'span2 autocomplete',

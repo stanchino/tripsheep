@@ -4,10 +4,13 @@ gem 'rails', '3.2.12'
 
 gem 'thin'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem "therubyracer"
 gem 'slim'
 gem 'slim-rails'
 gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 gem 'countries'
 gem 'google-analytics-rails'
 gem 'devise'
@@ -22,7 +25,7 @@ gem 'sprockets', '~> 2.0'
 #gem 'phony_rails'
 gem 'gmaps4rails'
 gem 'acts_as_list'
-gem 'bootstrap-datetimepicker-rails'
+#gem 'bootstrap-datetimepicker-rails'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

@@ -48,7 +48,9 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.save
-        format.html { render partial: "trips/destination_field", locals: { destination: @destination } }
+        from = @destination.last? ? @destination.higher_item : @destination
+        to = @destination.last? ? @destination : @destination.lower_item
+        format.html { render partial: "trips/interval", locals: { from: from, to: to } }
         format.json { render json: @destination, status: :created, destination: @destination }
       else
         format.html { render action: "new" }

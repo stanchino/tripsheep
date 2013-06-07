@@ -9,9 +9,9 @@ $ ->
         destinations_placeholder: '#destinations'
         new_destination_template: '#new_destination_template'
         autocomplete: '.autocomplete'
-        remove_destination: '.remove-destination:not(.disabled)'
-        destination_placeholder: '.destination-placeholder'
-        datepicker: '.date'
+        remove_destination: '.remove-destination'
+        destination_placeholder: '.interval-placeholder'
+        datepicker: '.datepicker'
 
     init: ->
       @$destinations_placeholder = $(@selectors.destinations_placeholder)
@@ -23,20 +23,27 @@ $ ->
       @bind_add_destination()
       @bind_remove_destination()
       @bind_datetimepicker()
+      console.log ClientSideValidations
 
     bind_datetimepicker: ->
-      $(@selectors.datepicker).
-      datetimepicker().
-      off('changeDate').
-      on 'changeDate', (event) =>
-        $(event.target).
-        datetimepicker('hide').
-        next('input[type="text"]').
-        val($.datepicker.formatDate('M dd', event.date))
+      $datepicker = $(@selectors.datepicker)
+      $datepicker.datepicker({ dateFormat: 'M dd', showOn: 'focus' })
+      for datepicker in $datepicker
+        do (datepicker) ->
+          dp = $(datepicker)
+          $("##{dp.data('datepicker-trigger')}").
+          off('click').
+          on 'click', (event) ->
+            dp.datepicker('show')
+      
 
     bind_add_destination: ->
       $(@selectors.new_destination_link).
       off('ajax:success').
+      on('ajax:beforeSend', (xhr, data, status) =>
+        $('#destinations input').trigger('change')
+        console.log   $('.from, .to').isValid({'trip[destinations_attributes][][location_attributes][address]': {'length': {'minimum': 1}}})
+      ).
       on 'ajax:success', (xhr, data, status) =>
         $(xhr.target).closest(@selectors.destination_placeholder).
         after $(data).fadeIn 400, ()=>
@@ -46,9 +53,11 @@ $ ->
       $(@selectors.remove_destination).
       off('ajax:success').
       on 'ajax:success', (xhr, data, status) =>
-        $(xhr.target).closest(@selectors.destination_placeholder).
-          fadeOut 400, () ->
-            this.remove()
+        $placeholder = $(xhr.target).closest(@selectors.destination_placeholder)
+        $placeholder.
+          fadeOut 400, () =>
+            $placeholder.remove()
+            @bind_events()
     
     bind_address_autocomplete: ->
       $(@selectors.autocomplete).autocomplete

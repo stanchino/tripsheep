@@ -6,6 +6,7 @@ class Location < ActiveRecord::Base
   attr_accessible :address, :address1, :city, :country, :state, :zip, :order, :longitude, :latitude
   validates_uniqueness_of :address
   validates_uniqueness_of :latitude, :longitude
+  validates_presence_of :address, on: :create
 
   has_many :destinations
   has_many :trips, through: :destinations

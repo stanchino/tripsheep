@@ -1,9 +1,11 @@
 - @title = @trip.name
+
 .row
-  .span4
+  .span6
     = render 'form'
-  .span8
+  .span6
     =gmaps(@map_options)
+
 .row
   h3 Trip schedule
   table.table.table-bordered.table-hover
@@ -19,9 +21,9 @@
       - @trip.intervals.each do |i|
         tr
           td
-            =i[0].departure_date
+            =i[:first].departure_date
           td
-            ="#{i[0].address} - #{i[1].address}"
+            ="#{i[:first].address} - #{i[:last].address}"
           td 0km
           td 9h30m
           td 05:00am-14:30pm
