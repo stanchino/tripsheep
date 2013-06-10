@@ -4,6 +4,7 @@ class CreateDestinations < ActiveRecord::Migration
       t.integer :position
       t.integer :trip_id
       t.integer :location_id
+      t.integer :days, default: nil
       t.datetime :departure_date
       t.datetime :arrival_date, default: nil
 

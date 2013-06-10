@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
     t.integer  "position"
     t.integer  "trip_id"
     t.integer  "location_id"
+    t.integer  "days"
     t.datetime "departure_date"
     t.datetime "arrival_date"
     t.datetime "created_at",     :null => false
@@ -115,8 +116,10 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
   add_index "oauth2_refresh_tokens", ["user_id"], :name => "index_oauth2_refresh_tokens_on_user_id"
 
   create_table "trips", :force => true do |t|
-    t.string   "name"
     t.integer  "user_id"
+    t.string   "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.string   "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

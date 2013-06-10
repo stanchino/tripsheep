@@ -4,54 +4,52 @@ $ ->
 
   class Tripsheep.ViewHelpers.TripsHelper
     constructor: ->
-      @selectors = 
-        new_destination_link: '.add-destination'
-        destinations_placeholder: '#destinations'
-        new_destination_template: '#new_destination_template'
+      @selectors =
+        placeholder: '.destination' 
+        add_destination: '.add-destination'
+        remove_destination: '.remove-destination'
+        template: '#new-destination-template'
         autocomplete: '.autocomplete'
-        remove_destination: '.remove-destination:not(.disabled)'
-        destination_placeholder: '.destination-placeholder'
-        datepicker: '.date'
+        datepicker: '.datepicker'
 
     init: ->
-      @$destinations_placeholder = $(@selectors.destinations_placeholder)
-      @$new_destination_content =  $(@selectors.new_destination_template).html()
-      @bind_events()
+      @$new_destination_content =  $(@selectors.template).html()
+      @bind_events $(@selectors.placeholder)
 
-    bind_events: ->
-      @bind_address_autocomplete()
-      @bind_add_destination()
-      @bind_remove_destination()
-      @bind_datetimepicker()
+    bind_events: (context) ->
+      @bind_address_autocomplete(context)
+      @bind_add_destination(context)
+      @bind_remove_destination(context)
+      @bind_datepicker(context)
+      #$('.days', context).combobox()
 
-    bind_datetimepicker: ->
-      $(@selectors.datepicker).
-      datetimepicker().
-      off('changeDate').
-      on 'changeDate', (event) =>
-        $(event.target).
-        datetimepicker('hide').
-        next('input[type="text"]').
-        val($.datepicker.formatDate('M dd', event.date))
+    bind_datepicker: (context) ->
+      $(@selectors.datepicker).datepicker()
+     
 
-    bind_add_destination: ->
-      $(@selectors.new_destination_link).
-      off('ajax:success').
-      on 'ajax:success', (xhr, data, status) =>
-        $(xhr.target).closest(@selectors.destination_placeholder).
-        after $(data).fadeIn 400, ()=>
-          @bind_events()
+    bind_add_destination: (context) ->
+      $(@selectors.add_destination, context).
+      on 'click', (event) =>
+        $placeholder = $(event.target).closest(@selectors.placeholder)
+        current_position = parseInt $placeholder.data('position')
+        next_position = parseInt $placeholder.next().data('position')
+        position = parseInt (current_position + next_position) / 2
+        console.log "Current: #{current_position}, Next: #{next_position}, Position: #{position}"
+        $template = $(@new_destination_template(position)).data('position', position)
+        $placeholder.after $template.fadeIn 400, ()=>
+          @bind_events $template
+        false
 
-    bind_remove_destination: ->
-      $(@selectors.remove_destination).
-      off('ajax:success').
-      on 'ajax:success', (xhr, data, status) =>
-        $(xhr.target).closest(@selectors.destination_placeholder).
+    bind_remove_destination: (context) ->
+      $(@selectors.remove_destination, context).
+      on 'click', (event) =>
+        $(event.target).closest(@selectors.placeholder).
           fadeOut 400, () ->
             this.remove()
+        false
     
-    bind_address_autocomplete: ->
-      $(@selectors.autocomplete).autocomplete
+    bind_address_autocomplete: (context) ->
+      $(@selectors.autocomplete, context).autocomplete
         source: (request, response) ->
           $.ajax
             url: "http://ws.geonames.org/searchJSON",
@@ -75,11 +73,14 @@ $ ->
         close: ->
           $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
 
-    new_destination_template: =>
-      @$new_destination_content
+    new_destination_template: (position) =>
+      new_id = new Date().getTime()
+      new_id = parseInt(position) + 1 unless typeof position == 'undefined'
+      regexp = new RegExp "new_destination", "g"
+      @$new_destination_content.replace regexp, new_id
 
     update_data: (position, delta) =>
-      $(@selectors.destination_placeholder)[position..].each (id, el) =>
+      $(@selectors.placeholder)[position..].each (id, el) =>
         $el = $(el)
         $destination_link = $(@selectors.new_destination_link, $el)
         $destination_input = $(@selectors.autocomplete, $el)

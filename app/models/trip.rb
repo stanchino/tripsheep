@@ -2,7 +2,7 @@ class Trip < ActiveRecord::Base
   PENDING = 'pending'
   SAVED = 'saved'
   
-  attr_accessible :name, :start, :finish, :destinations, :destinations_attributes, :status
+  attr_accessible :name, :start_date, :end_date, :destinations, :destinations_attributes, :status
 
   has_many :destinations
   accepts_nested_attributes_for :destinations

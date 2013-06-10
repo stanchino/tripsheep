@@ -1,12 +1,12 @@
 class Destination < ActiveRecord::Base
-  attr_accessible :id, :arrival_date, :departure_date, :location, :location_attributes, :position
+  attr_accessible :id, :arrival_date, :departure_date, :location, :location_attributes, :position, :days
 
   belongs_to :trip
   belongs_to :location
 
   accepts_nested_attributes_for :location
   
-  delegate :address, to: :location, prefix: false
+  delegate :address, to: :location, prefix: false, allow_nil: true
   
   acts_as_list scope: :trip
   default_scope order(:position)

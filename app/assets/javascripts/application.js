@@ -12,8 +12,10 @@
 //
 //= require jquery.min
 //= require jquery_ujs
-//= require jquery-ui.min
-//= require jquery.purr
 //= require bootstrap
-//= require bootstrap-datetimepicker
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require jquery.ui.datepicker
+//= require jquery.ui.autocomplete
+//= require jquery.ui.combobox
 //= require_tree .

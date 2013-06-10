@@ -49,8 +49,7 @@ class TripsController < ApplicationController
   # POST /trips
   # POST /trips.json
   def create
-    @trip = current_user.trips.create
-    @trip.update_attributes(params[:trip])
+    @trip = current_user.trips.build(params[:trip])
 
     respond_to do |format|
       if @trip.save

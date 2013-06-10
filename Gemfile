@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails'
 
 gem 'thin'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem "therubyracer"
 gem 'slim'
 gem 'slim-rails'
+gem 'client_side_validations'
 gem 'simple_form'
-gem 'countries'
+#gem 'countries'
 gem 'google-analytics-rails'
 gem 'devise'
 gem 'devise_oauth2_providable'
@@ -16,13 +18,12 @@ gem 'faker', :require => false
 gem 'sass-rails',   '~> 3.2.3'
 gem 'bootstrap-sass', '~> 2.3.0.0'
 #gem 'aws-s3', '0.6.2', :require => 'aws/s3'
-gem 'best_in_place'
+#gem 'best_in_place'
 gem 'sprockets', '~> 2.0'
 #gem 'pdfkit'
 #gem 'phony_rails'
 gem 'gmaps4rails'
 gem 'acts_as_list'
-gem 'bootstrap-datetimepicker-rails'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
