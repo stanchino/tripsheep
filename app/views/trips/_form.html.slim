@@ -1,5 +1,5 @@
 - form_builder = nil
-= simple_form_for(@trip, html: {class: 'form-inline', id: 'destinations'}, validate: true) do |f|
+= simple_form_for(@trip, html: {class: 'form-inline clearfix', id: 'destinations'}, validate: true) do |f|
   - form_builder = f
   - if @trip.errors.any?
     #error_explanation
@@ -7,23 +7,25 @@
       ul
         - @trip.errors.full_messages.each do |message|
           li = message
-  .row-fluid
-    .span8
-      = f.input_field :name,
-        label: false,
-        placeholder: "Trip name",
-        wrapper_html: {class: 'span8'}
-    .input-prepend.span4
-      span.add-on.span2
-        i.icon-calendar
-      = f.input_field :start_date, as: :date_picker, class: 'span10'
-    .input-prepend.span4
-      span.add-on.span2
-        i.icon-calendar
-      = f.input_field :end_date, as: :date_picker, class: 'span10'
-    = f.error :start_date, class: 'span4'
-    = f.error :end_date, class: 'span4'
-  
+  = f.input :name,
+    label: false,
+    validate: {presence: true},
+    placeholder: "Trip name",
+    wrapper_html: {class: 'row-fluid'},
+    input_html: {class: 'span8'}
+
+  .control-group.row-fluid
+    .controls
+      .input-prepend.span4
+        span.add-on.span2
+          i.icon-calendar
+        = f.input_field :start_date, as: :date_picker, class: 'span10'
+      .input-prepend.span4
+        span.add-on.span2
+          i.icon-calendar
+        = f.input_field :end_date, as: :date_picker, class: 'span10'
+      = f.error :start_date, class: 'span4'
+      = f.error :end_date, class: 'span4'
   -if @trip.new_record?
     =fields_for_new_destination f, 1
     =fields_for_new_destination f, 1.year.since.to_i
