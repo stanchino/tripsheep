@@ -1,23 +1,36 @@
 - destination = builder.object
-.destination.row data-position=destination.position
+.destination.row-fluid data-position=destination.position
   = builder.input_field :id, as: :hidden unless destination.new_record?
   = builder.input_field :position, as: :hidden unless destination.new_record?
   = builder.simple_fields_for(:location, destination.location || destination.build_location) do |l|
     = l.input :address,
-      label: false,
-      validate: {presence: true},
-      placeholder: destination_placeholder(destination),
-      wrapper_html: {class: "span3"},
-      input_html: {class: 'span3 autocomplete', tabindex: destination.position}
-    - if !destination.first?
-      = builder.input :days,
-        label: false,
+      label: t("simple_form.labels.trip.#{destination_placeholder(destination)}"),
+      wrapper: :append,
+      wrapper_html: {class: "span8"} do
+      = l.input_field :address,
         validate: {presence: true},
-        placeholder: 'Days:',
-        input_html: {class: 'span1 days'},
-        wrapper_html: {class: 'inline pull-left'}
-    -if !destination.first? && !destination.last?
-      = link_to raw('<i class="icon-minus-sign"></i>'), '#',
-        class: 'btn remove-destination'
-    = link_to raw('<i class="icon-plus-sign"></i>'), '#', 
-      class: "btn add-destination"
+        placeholder: 'Start typing a city or country',
+        class: 'span10 autocomplete',
+        tabindex: destination.position
+      -if !destination.first? && !destination.last?
+        = link_to raw('<i class="icon-minus-sign"></i>'), '#',
+          class: 'btn remove-destination'
+      = link_to raw('<i class="icon-plus-sign"></i>'), '#', 
+        class: "btn add-destination"
+    - if !destination.first?
+      .control-group.span4
+        = builder.label :days, class: 'row-fluid'
+        .row-fluid
+          .controls.span6
+            = builder.input_field :days,
+              placeholder: 'Days:',
+              class: 'span10 days',
+              type: :number,
+              min: 0
+          .controls.span6
+            = builder.input_field :hours,
+              placeholder: 'Hours:',
+              class: 'span10 hours',
+              type: :number,
+              min: 0,
+              max: 24

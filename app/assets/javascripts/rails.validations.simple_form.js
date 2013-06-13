@@ -14,7 +14,7 @@ ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
 
     settings.wrapper_tag = ".control-group";
     settings.error_tag = "span";
-    settings.error_class = "help-inline";
+    settings.error_class = "help-block";
     settings.wrapper_error_class = "error";
     settings.wrapper_success = "success";
 

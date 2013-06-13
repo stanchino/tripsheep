@@ -1,5 +1,8 @@
 class Destination < ActiveRecord::Base
-  attr_accessible :id, :arrival_date, :departure_date, :location, :location_attributes, :position, :days
+  attr_accessible :id, :arrival_date, :departure_date, :location,
+    :location_attributes, :position, :days, :hours
+  
+  validates_presence_of :days, :hours
 
   belongs_to :trip
   belongs_to :location

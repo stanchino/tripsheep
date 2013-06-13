@@ -1,9 +1,20 @@
 - @title = @trip.name
 .row
-  .span5
-    = render 'form'
   .span7
+    .tabbable.tabbable-bordered
+      ul.nav.nav-tabs
+        li.active
+          =link_to "New Trip", "#new-trip", :"data-toggle" => "tab"
+        li
+          =link_to "View Trip", "#view-trip", :"data-toggle" => "tab"
+        li
+          =link_to "My Trips", "#trips", :"data-toggle" => "tab"
+      .tab-content
+        .tab-pane.active#home
+          = render 'form'
+  .span5
     =gmaps(@map_options)
+
 .row
   h3 Trip schedule
   table.table.table-bordered.table-hover
@@ -19,7 +30,7 @@
       - @trip.intervals.each do |i|
         tr
           td
-            =i[0].departure_date
+            =i[0].departure
           td
             ="#{i[0].address} - #{i[1].address}"
           td 0km
@@ -43,7 +54,7 @@
       - @trip.destinations.each do |w|
         tr
           td
-            =w.arrival_date
+            =w.arrival
           td
             =w.address
           td 3

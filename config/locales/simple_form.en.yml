@@ -22,7 +22,13 @@ en:
           email: 'E-mail.'
       trip:
         name: 'Trip Name'
+        start_date:  'Start Date'
+        end_date:  'End Date'
+        start_from: 'Start From'
+        destination: 'Travel To'
         submit: "Create"
+        destinations:
+          days: 'Period'
     hints:
       defaults:
         username: 'User name to sign in.'

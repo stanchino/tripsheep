@@ -4,7 +4,7 @@ class TripsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :map_options
-  before_filter :current_trip, :only => :new
+  #before_filter :current_trip, :only => :new
 
   # GET /trips
   # GET /trips.json
@@ -33,7 +33,7 @@ class TripsController < ApplicationController
   # GET /trips/new
   # GET /trips/new.json
   def new
-    @trip = current_user.current_trip
+    @trip = Trip.new
 
     respond_to do |format|
       format.html # new.html.erb

@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
     :msg => "Sorry, the address was not found"
 
   attr_accessible :address, :address1, :city, :country, :state, :zip, :order, :longitude, :latitude
-  validates_uniqueness_of :address
+  validates_presence_of :address
   validates_uniqueness_of :latitude, :longitude
 
   has_many :destinations
