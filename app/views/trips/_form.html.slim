@@ -7,34 +7,32 @@
       ul
         - @trip.errors.full_messages.each do |message|
           li = message
-  = f.input :name,
-    validate: {presence: true},
-    placeholder: "eg. Summer Vacation",
-    wrapper_html: {class: 'row-fluid'},
-    input_html: {class: 'span8'},
-    error_html: {class: 'help-block'}
-
-  .control-group.row-fluid
-    .controls.span4
-      = f.label :start_date
+  .row-fluid
+    = f.input :name,
+      validate: {presence: true},
+      placeholder: "eg. Summer Vacation",
+      input_html: {class: 'span8'},
+      error_html: {class: 'help-block'}
+  .row-fluid
+    = f.input :start_date,
+      wrapper_html: {class: 'row-fluid span4'} do
       .input-prepend.span12
-        span.add-on.span2
-          i.icon-calendar
+        span.add-on.datepicker-trigger
+            i.icon-calendar
         = f.input_field :start_date,
-          placeholder: 'Click to select',
           as: :date_picker,
+          placeholder: 'Click to select',
           class: 'span10'
-      = f.error :start_date, class: 'span4'
-    .controls.span4
-      = f.label :end_date
+    = f.input :end_date,
+      wrapper_html: {class: 'row-fluid span4'} do
       .input-prepend.span12
-        span.add-on.span2
-          i.icon-calendar
+        span.add-on.datepicker-trigger
+            i.icon-calendar
         = f.input_field :end_date,
-          placeholder: 'Click to select',
           as: :date_picker,
+          placeholder: 'Click to select',
           class: 'span10'
-      = f.error :end_date, class: 'span4'
+
   -if @trip.new_record?
     =fields_for_new_destination f, 1
     =fields_for_new_destination f, 1.year.since.to_i

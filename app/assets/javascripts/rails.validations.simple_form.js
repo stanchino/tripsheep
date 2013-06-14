@@ -26,11 +26,11 @@ ClientSideValidations.formBuilders['SimpleForm::FormBuilder'] = {
         "class": settings.error_class,
         text: message
       });
-      return wrapper.find(".controls").append(errorElement);
-    } else {
+      return element.closest(".controls").append(errorElement);
+    } else if (element.data('valid') === true){
       wrapper = element.closest(settings.wrapper_tag);
       wrapper.addClass(settings.wrapper_error_class);
-      return element.parent().find("" + settings.error_tag + "." + settings.error_class).text(message);
+      return element.closest(".controls").find("" + settings.error_tag + "." + settings.error_class).text(message);
     }
   },
   remove: function(element, settings) {

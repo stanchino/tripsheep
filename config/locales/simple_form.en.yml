@@ -28,7 +28,8 @@ en:
         destination: 'Travel To'
         submit: "Create"
         destinations:
-          days: 'Period'
+          days: 'Days to stay'
+          hours: 'Hours to stay'
     hints:
       defaults:
         username: 'User name to sign in.'

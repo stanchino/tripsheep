@@ -2,8 +2,6 @@ class Destination < ActiveRecord::Base
   attr_accessible :id, :arrival_date, :departure_date, :location,
     :location_attributes, :position, :days, :hours
   
-  validates_presence_of :days, :hours
-
   belongs_to :trip
   belongs_to :location
 
@@ -13,6 +11,11 @@ class Destination < ActiveRecord::Base
   
   acts_as_list scope: :trip
   default_scope order(:position)
+  
+  validates_presence_of :days
+  validates :days, numericality: { greater_than_or_equal_to: 0 }
+  validates_presence_of :hours, unless: Proc.new { |r| r.days > 0 }
+  validates :hours, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 24 }
   
   def is_removable?
     !self.first? && !self.last?

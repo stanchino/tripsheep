@@ -7,6 +7,7 @@ class Trip < ActiveRecord::Base
 
   has_many :destinations
   accepts_nested_attributes_for :destinations
+  validates_associated :destinations
   
   has_many :locations, through: :destinations
 
