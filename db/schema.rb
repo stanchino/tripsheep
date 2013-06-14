@@ -35,14 +35,16 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
     t.integer  "position"
     t.integer  "trip_id"
     t.integer  "location_id"
-    t.datetime "departure_date"
-    t.datetime "arrival_date"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "days"
+    t.integer  "hours"
+    t.datetime "departure"
+    t.datetime "arrival"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
-  add_index "destinations", ["arrival_date"], :name => "index_destinations_on_arrival_date"
-  add_index "destinations", ["departure_date"], :name => "index_destinations_on_departure_date"
+  add_index "destinations", ["arrival"], :name => "index_destinations_on_arrival"
+  add_index "destinations", ["departure"], :name => "index_destinations_on_departure"
   add_index "destinations", ["trip_id", "location_id"], :name => "index_destinations_on_trip_id_and_location_id"
 
   create_table "locations", :force => true do |t|
@@ -115,8 +117,10 @@ ActiveRecord::Schema.define(:version => 20130524151721) do
   add_index "oauth2_refresh_tokens", ["user_id"], :name => "index_oauth2_refresh_tokens_on_user_id"
 
   create_table "trips", :force => true do |t|
-    t.string   "name"
     t.integer  "user_id"
+    t.string   "name"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.string   "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

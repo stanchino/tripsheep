@@ -1,14 +1,50 @@
-= simple_form_for(@trip, html: {class: 'form-inline', id: 'destinations'}, remote: true, validate: true) do |f|
+- form_builder = nil
+= simple_form_for(@trip, html: {class: 'form-inline clearfix', id: 'destinations'}, validate: true) do |f|
+  - form_builder = f
   - if @trip.errors.any?
     #error_explanation
       h2 = "#{pluralize(@trip.errors.count, "error")} when saving the trip:"
       ul
         - @trip.errors.full_messages.each do |message|
           li = message
-  - @trip.intervals.each do |interval|
-    = render 'trips/interval', from: interval[:first], to: interval[:last]
+  .row-fluid
+    = f.input :name,
+      validate: {presence: true},
+      placeholder: "eg. Summer Vacation",
+      input_html: {class: 'span8'},
+      error_html: {class: 'help-block'}
+  .row-fluid
+    = f.input :start_date,
+      wrapper_html: {class: 'row-fluid span4'} do
+      .input-prepend.span12
+        span.add-on.datepicker-trigger
+            i.icon-calendar
+        = f.input_field :start_date,
+          as: :date_picker,
+          placeholder: 'Click to select',
+          class: 'span10'
+    = f.input :end_date,
+      wrapper_html: {class: 'row-fluid span4'} do
+      .input-prepend.span12
+        span.add-on.datepicker-trigger
+            i.icon-calendar
+        = f.input_field :end_date,
+          as: :date_picker,
+          placeholder: 'Click to select',
+          class: 'span10'
+
+  -if @trip.new_record?
+    =fields_for_new_destination f, 1
+    =fields_for_new_destination f, 1.year.since.to_i
+  -else
+    = f.simple_fields_for(:destinations) do |d|
+      = render 'destinations/form', builder: d
   = button_tag type: :submit, class: "btn btn-success" do
     -if @trip.new_record?
       =raw('<i class="icon-plus-sign icon-white"></i> Start')
     -else
       =raw('<i class="icon-ok-sign icon-white"></i> Save')
+
+- content_for :templates do
+  script#new-destination-template type="text/template"
+    = fields_for_new_destination form_builder

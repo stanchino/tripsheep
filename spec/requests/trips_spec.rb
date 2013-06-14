@@ -3,8 +3,9 @@ require 'spec_helper'
 describe "Trips" do
   describe "GET /trips" do
     it "works! (now write some real specs)" do
+      pending "Add authentication"
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get trips_path
+      get new_trip_path
       response.status.should be(200)
     end
   end
