@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :trip do
     name "MyString"
+    start_date DateTime.now
   end
 end
