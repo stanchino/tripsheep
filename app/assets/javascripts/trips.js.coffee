@@ -71,7 +71,7 @@ $ ->
           fadeOut 400, () ->
             this.remove()
         false
-    
+
     bind_address_autocomplete: (context) ->
       $(@selectors.autocomplete, context).autocomplete
         source: (request, response) ->

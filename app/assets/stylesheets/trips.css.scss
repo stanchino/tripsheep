@@ -1,23 +1,52 @@
-.destination-placeholder {
+.interval-placeholder {
   margin-bottom:15px;
   display:block;
   position:relative;
-}
-
-input.autocomplete {
-  margin-left:-1px;
-}
-
-.first {
-  .autocomplete {
-    width:150px;
-  } 
-}
-
-.last {
-  input.autocomplete {
-    width:180px;
-    border-radius: 0 4px 4px 0;
+  input.from {
+    margin-left:-1px;
+  }
+  .datepicker {
+    width:50px;
   }
 }
+
+@media (min-width: 1200px) {
+  .interval-placeholder {
+    .from, .to {
+      width:140px;
+    }
+  }
+  .first {
+    .to {
+      width:165px;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+  .interval-placeholder {
+    .from, .to {
+      width:120px
+    }
+  }
+  .first {
+    .to {
+      width:145px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .interval-placeholder {
+    .from, .to {
+      width:96px
+    }
+  }
+  .first {
+    .to {
+      width:121px;
+    }
+  }
+}
+
 

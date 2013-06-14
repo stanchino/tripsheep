@@ -17,5 +17,4 @@
 //= require rails.validations.simple_form
 //= require jquery.ui.datepicker
 //= require jquery.ui.autocomplete
-//= require jquery.ui.combobox
 //= require_tree .

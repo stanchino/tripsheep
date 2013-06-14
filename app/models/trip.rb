@@ -15,8 +15,8 @@ class Trip < ActiveRecord::Base
   
   def intervals
     intervals = []
-    self.destinations.each_with_index do |w, i|
-      intervals << [w, self.destinations[i+1]] unless self.destinations[i+1].nil?
+    self.destinations.each_with_index do |destination, i|
+      intervals << {:first => destination, :last => self.destinations[i+1]} unless destination.last?
     end
     return intervals
   end
