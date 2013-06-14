@@ -48,9 +48,10 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.save
-        from = @destination.last? ? @destination.higher_item : @destination
-        to = @destination.last? ? @destination : @destination.lower_item
-        format.html { render partial: "trips/interval", locals: { from: from, to: to } }
+        format.html { 
+          redirect_to edit_trip_destination_path(@trip, @destination),
+          notice: 'Destination was successfully created.'
+        }
         format.json { render json: @destination, status: :created, destination: @destination }
       else
         format.html { render action: "new" }
@@ -66,7 +67,10 @@ class DestinationsController < ApplicationController
 
     respond_to do |format|
       if @destination.update_attributes(params[:destination])
-        format.html { redirect_to @destination, notice: 'Destination was successfully updated.' }
+        format.html {
+          redirect_to edit_trip_destination_path(@trip, @destination),
+          notice: 'Destination was successfully updated.' 
+        }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

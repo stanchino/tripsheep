@@ -2,20 +2,17 @@ class Trip < ActiveRecord::Base
   PENDING = 'pending'
   SAVED = 'saved'
   
-  attr_accessible :name, :start, :finish, :destinations, :destinations_attributes, :status
+  attr_accessible :name, :start_date, :end_date, :destinations, :destinations_attributes, :status
+  validates_presence_of :name, :start_date
 
   has_many :destinations
   accepts_nested_attributes_for :destinations
+  validates_associated :destinations
   
   has_many :locations, through: :destinations
 
-  before_create :add_destinations
+  #before_create :add_destinations
   
-  def name
-    "From #{self.locations.first.address} to #{self.locations.last.address}" unless
-      self.locations.first.nil? or self.locations.last.nil?
-  end
-
   def intervals
     intervals = []
     self.destinations.each_with_index do |destination, i|

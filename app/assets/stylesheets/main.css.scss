@@ -69,3 +69,34 @@ a.btn:visited {
   -webkit-border-radius: 4px;
   &:first-letter { text-transform: uppercase; }
 }
+
+.tabbable-bordered .nav-tabs
+{
+    margin: 0;
+}
+
+.tabbable-bordered .tab-content
+{
+    padding: 10px;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid #ddd;
+    border-top: 0;
+}
+
+.tabbable-bordered.tabs-left .tab-content
+{
+    border: 1px solid #ddd;
+    border-left: 0;
+}
+
+.tabbable-bordered.tabs-right .tab-content
+{
+    border: 1px solid #ddd;
+    border-right: 0;
+}
+
+.tabbable-bordered.tabs-below .tab-content
+{
+    border: 1px solid #ddd;
+    border-bottom: 0;
+}
