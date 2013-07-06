@@ -1,17 +1,18 @@
 - @title = @trip.name
-.row-fluid
-  .tabbable
-    ul.nav.nav-tabs
-      li
-        =link_to "New Trip", root_path, :"data-toggle" => "tab"
-      li
-        =link_to "My Trips", trips_path, :"data-toggle" => "tab"
-      li.active
-        =link_to "View Trip", trip_path(@trip), :"data-toggle" => "tab"
-    .tab-content
-      .tab-pane.active.row-fluid
+.tabbable
+  ul.nav.nav-tabs
+    li
+      =link_to "New Trip", root_path
+    li
+      =link_to "My Trips", trips_path
+    li.active
+      =link_to "View Trip", trip_path(@trip), :"data-toggle" => "tab"
+  .tab-content
+    .tab-pane.active
+      .row-fluid
         .span7
-          = render 'form'
+          .well
+            = render 'form'
         .span5
           = gmaps(@map_options)
 
@@ -30,7 +31,7 @@
       - @trip.intervals.each do |i|
         tr
           td
-            =i[0].departure
+            =i[:first][:departure_date]
           td
             ="#{i[:first].address} - #{i[:last].address}"
           td 0km

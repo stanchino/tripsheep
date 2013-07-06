@@ -1,16 +1,7 @@
 br
 .row
   .span7
-    .tabbable.tabbable-bordered
-      ul.nav.nav-tabs
-        li.active
-          =link_to "New Trip", "#new-trip", :"data-toggle" => "tab"
-        li
-          =link_to "View Trip", "#view-trip", :"data-toggle" => "tab"
-        li
-          =link_to "My Trips", "#trips", :"data-toggle" => "tab"
-      .tab-content
-        .tab-pane.active#home
-          = render 'form'
+    .well
+      = render 'form'
   .span5  
     =gmaps(@map_options[:defaults])
