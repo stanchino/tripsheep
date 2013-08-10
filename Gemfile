@@ -1,14 +1,18 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails'
 
 gem 'thin'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem "therubyracer"
 gem 'slim'
 gem 'slim-rails'
+gem 'client_side_validations'
 gem 'simple_form'
-gem 'countries'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+#gem 'countries'
 gem 'google-analytics-rails'
 gem 'devise'
 gem 'devise_oauth2_providable'
@@ -20,6 +24,9 @@ gem 'bootstrap-sass', '~> 2.3.0.0'
 gem 'sprockets', '~> 2.0'
 #gem 'pdfkit'
 #gem 'phony_rails'
+gem 'gmaps4rails'
+gem 'acts_as_list'
+#gem 'bootstrap-datetimepicker-rails'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'
@@ -55,7 +62,7 @@ end
 
 group :development do
   gem 'better_errors'
-#  gem 'binding_of_caller'
+  gem 'binding_of_caller'
   gem 'debugger'
 end
 

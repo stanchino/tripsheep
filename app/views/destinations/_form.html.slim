@@ -1,0 +1,38 @@
+- destination = builder.object
+.destination.row-fluid data-position=destination.position
+  = builder.simple_fields_for(:location, destination.location || destination.build_location) do |l|
+    = l.input :address,
+      label: t("simple_form.labels.trip.#{destination_placeholder(destination)}"),
+      wrapper: :append,
+      wrapper_html: {class: "span8"} do
+      = l.input_field :address,
+        placeholder: 'Start typing a city or country',
+        class: "#{destination.first? ? 'span12' : 'span10'} autocomplete",
+        tabindex: destination.position
+      - if !destination.first?
+        = link_to raw('<i class="icon-minus-sign"></i>'), '#',
+          class: 'btn remove-destination'
+      = link_to raw('<i class="icon-plus-sign"></i>'), '#', 
+        class: "btn add-destination"
+    - if !destination.first?
+      = builder.input :days,
+        wrapper_html: {class: 'row-fluid span2'} do
+        = builder.input_field :days,
+          placeholder: 'Days:',
+          validate: true,
+          class: 'span11 days',
+          type: :number,
+          min: 0
+      = builder.input :hours,
+        wrapper_html: {class: "row-fluid span2 #{'invisible' if destination.days.nil? || destination.days > 0}"} do
+        = builder.input_field :hours,
+          placeholder: 'Hours:',
+          class: 'span11 hours',
+          type: :number,
+          min: 1,
+          max: 24
+    - else
+      = builder.input_field :days, as: :hidden, value: 0
+      = builder.input_field :hours, as: :hidden, value: 0
+    = builder.input_field :id, as: :hidden unless destination.new_record?
+    = builder.input_field :position, as: :hidden unless destination.new_record?

@@ -23,7 +23,7 @@ module ApplicationHelper
     items = []
     if user_signed_in?
       items = [
-        {label: "Hello #{current_user.first_name}", path: "#", html: {class: 'disabled'}},
+        {label: "Hello #{current_user.email}", path: "#", html: {class: 'disabled'}},
         {label: "Sign Out", path: logout_path, path_options: {method: 'delete'}}
       ]
     else

@@ -1,0 +1,30 @@
+=simple_fields_for(@trip) do |f|
+  .destination-placeholder.clearfix class="#{'first' if destination.first?} #{'last' if destination.last?}"
+    = f.simple_fields_for(:destinations, destination, child_index: destination.id, class: "destination ui-widget") do |wp|
+      - location = destination.location || wp.object.class.reflect_on_association(:location).klass.new
+      = wp.input :id, as: :hidden, wrapper: false
+      = wp.fields_for(:location, location) do |l|
+          - if !location.new_record?
+            = l.input :id, as: :hidden, wrapper: false
+          .input-append.input-prepend
+            .input-prepend title="Departure Date"
+            = link_to raw('<i class="icon-calendar"></i>'), '#', class: "add-on", id: "datepicker-trigger-#{destination.id}"
+            = wp.input_field :departure_date, as: :hidden
+            = text_field_tag :departure_date,
+              destination.departure_date.respond_to?(:to_time) ? destination.departure_date.to_time.strftime('%b %d') : '',
+              id: "datepicker-#{destination.id}", class: 'datepicker span1',
+              :'data-datepicker-trigger' => "datepicker-trigger-#{destination.id}"
+            = l.input_field :address,
+              placeholder: "#{destination.first? ? 'Departure' : 'Destination'}",
+              class: 'span2 autocomplete',
+              tabindex: destination.position
+            -if !destination.first? && !destination.last?
+              = link_to raw('<i class="icon-minus-sign"></i>'),
+               trip_destination_path(@trip, destination, :format => :json),
+               method: :delete, remote: true, 
+               class: 'btn add-on remove-destination'
+            -if !destination.last?
+              = link_to raw('<i class="icon-plus-sign"></i>'), 
+                trip_destinations_path(@trip, :position => destination.position+1),
+                method: :post, remote: true,
+                class: "btn add-on add-destination"

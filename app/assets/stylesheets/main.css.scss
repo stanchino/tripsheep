@@ -1,5 +1,5 @@
 @import "bootstrap";
-
+@import 'bootstrap-responsive';
 
 /* ###########################################
                    VARIABLES
@@ -25,196 +25,40 @@ form label.checkbox.disabled {
   color: #777;
 }
 
-
-
-/* ###########################################
-                   OVERRIDES
-############################################ */
-.hero-unit {
-  padding: 20px;
-  background-color: white;
-  p {
-    text-align: center;
-  }
+.navbar-static-top .container,
+.navbar-fixed-top .container,
+.navbar-fixed-bottom .container {
+  width:100%;
 }
 
-.well, .hero-unit {
-  border: 1px solid $lightGray;
-  @include box-shadow(none);
+a.btn:visited {
+  color:white;
 }
 
-.navbar-fixed-top .navbar-inner, 
-.navbar-static-top .navbar-inner {
-  margin-bottom: 4px;
-  background: none;
-  border: none;
-  @include box-shadow(none);
-
-  .container {
-    height: 44px;
-    border-bottom: 2px dotted #aeb7b8;
-    padding: 10px 0;
-    span {
-      line-height: 44px;
-    }
-
-    a.brand {
-      color: $lightGray;
-      border: 2px solid #E0E0E0;
-      margin-left: 0;
-      margin-right: 18px;
-    }
-
-    .header-nav{
-      font-size: 12px;
-      li {
-        a {
-          padding-left: 7px;
-          padding-right: 7px;
-        }
-      }
-    }
-  }
+/*
+.ui-autocomplete-loading {
+  background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
 }
+*/
 
-.well.sidebar-nav {
-  padding: 0;
-
-  .nav.nav-list {
-    padding: 0;
-    li {
-      border-top: 1px solid $lightGray;
-      margin: 0;
-      padding: 0;
-
-      &:first-child {
-        border-top: none;
-      }
-
-      &.nav-header {
-        padding: 0;
-        margin: 0;
-        font-weight: normal;
-
-        a {
-          color: grey;
-        }
-      }
-
-      &.active {
-        a, a:hover {
-          background-color: transparent;
-          color: #727f84;
-          font-weight: bold;
-        }
-      }
-
-      a {
-        margin: 0;
-        padding: 8px 10px;
-      }
-
-    }
-  }
-
-  .nav.nav-list.sublist {
-    background-color: #fff;
-    li {
-      font-size: 13px;
-      padding-left: 25px;
-      text-transform: none;
-
-      &:first-child {
-        border-top: 1px solid $lightGray;
-      }
-
-      a, a:hover {
-        background-color: transparent;
-        color: #0088cc;
-        font-weight: normal;
-      }
-
-    }
-
-    li.active {
-      a, a:hover {
-        font-weight: bold;
-      }
-    }
-  }
-}
-
-
-
-/* ###########################################
-FORMS
-############################################ */
-.form-horizontal {
-  .control-label {
-    width: $controlLabelMargin + px;
-  }
-
-  .controls {
-    margin-left: ($controlLabelMargin + 20) + px;
-    select {
-      margin-left: 8px;
-    }
-    select:first-child {
-      margin-left: 0;
-    }
-  }
-}
-
-form {
-  .controls {
-    select.date {
-      width: 120px;
-    }
-
-    input.btn:first-child {
-      margin: 0;
-    }
-
-    input.btn {
-      margin-left: 8px;
-    }
-  }
-
-  fieldset {
-    border-bottom: 2px dotted $lightGray;
-    margin-bottom: 18px;
-  }
-
-  label {
-    color: #ACB4B7;
-
-    &.checkbox {
-      color: #333;
-    }
-  }
-
-  .help-block {
-    color: #ACB4B7;
-    font-size: 12px;
-  }
-  .input-micro {
-    width: 30px;
-  }
-}
-.inline-editable{
+.inline-editable {
+  /*
   span:hover{
     background-color: #dff0d8;
-    border: 1px solid #468847;
-    padding: 5px 5px 10px 5px;
+    padding: 15px 5px 15px 5px;
     -webkit-border-radius: 4px;
+    border-color: #468847;
     cursor:pointer;
   }
+  */
   form.form_in_place {
+    padding: 5px 5px 10px 5px;
     input {
       margin:0px 5px 0px 0px;
     }
   }
 }
+
 .purr {
   position:fixed;
   top:50%;
@@ -226,80 +70,33 @@ form {
   &:first-letter { text-transform: uppercase; }
 }
 
-/* ###########################################
-APPLICATION
-############################################ */
-.page-title {
-  .title-content {
-    line-height: 40px;
-  }
-  border-bottom: 2px dotted $lightGray;
-  margin-bottom: 18px;
-  height: 40px;
-}
-
-button {
-  margin-right: 5px;
-  .icon-remove.left {
-    padding-right: 7px;
-  }
-}
-
-.button-container {
-  form {
+.tabbable-bordered .nav-tabs
+{
     margin: 0;
-  }
 }
 
-//Model Modal Defaults
-.add_model_modal,
-.edit_model_modal {
-  .datetime input {
-    width :150px;
-  }
-  form {
-    margin: 0;
-  }
-  legend {
-    margin-bottom:0;
-    border:0;
-  }
-  .form-horizontal .control-group {
-    margin-bottom: 10px;
-  }
-  .control-group {
-    margin:0;
-  }
+.tabbable-bordered .tab-content
+{
+    padding: 10px;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid #ddd;
+    border-top: 0;
 }
 
-table {
-  td.amount {
-    text-align: right;
-  }
-
-  &.resource-list {
-    background-color: white;
-  }
+.tabbable-bordered.tabs-left .tab-content
+{
+    border: 1px solid #ddd;
+    border-left: 0;
 }
 
-.clear-left {
-  clear: left;
+.tabbable-bordered.tabs-right .tab-content
+{
+    border: 1px solid #ddd;
+    border-right: 0;
 }
 
-.error-list{
-    margin-top: 10px;
-    li{
-      text-transform: capitalize;
-    }
-}
-
-.scrollable-table-container{
-  height: 350px !important;
-  overflow: auto;
-}
-
-.table{
-  &.scrollable{
-    overflow: auto;
-  }
+.tabbable-bordered.tabs-below .tab-content
+{
+    border: 1px solid #ddd;
+    border-bottom: 0;
 }

@@ -26,3 +26,4 @@ public/assets/
 .sass-cache
 database.yml
 
+Gemfile.lock

@@ -1,5 +1,7 @@
 Tripsheep::Application.routes.draw do
-  root :to => 'index#index'
+  root :to => 'trips#new'
+
+
   devise_for :admins
 
   devise_for :users
@@ -15,6 +17,10 @@ Tripsheep::Application.routes.draw do
   end
 
   mount Devise::Oauth2Providable::Engine => '/oauth'
+  
+  resources :trips do
+    resources :destinations
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

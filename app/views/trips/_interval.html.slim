@@ -1,0 +1,51 @@
+- from_builder = nil
+- from_location_builder = nil
+- to_builder = nil
+- to_location_builder = nil
+
+- simple_fields_for(@trip) do |trip|
+  - trip.simple_fields_for(:destinations, from, child_index: from.id, class: "destination") do |f|
+    - from_builder = f
+    - from_location = from.location || f.object.class.reflect_on_association(:location).klass.new
+    - f.simple_fields_for(:location, from_location) do |fl|
+      -from_location_builder = fl
+  - trip.simple_fields_for(:destinations, to, child_index: to.id, class: "destination") do |t|
+    - to_builder = t
+    - to_location = to.location || t.object.class.reflect_on_association(:location).klass.new
+    - t.simple_fields_for(:location, to_location) do |tl|
+      -to_location_builder = tl
+
+
+.interval-placeholder.clearfix class="#{'first' if from.first?}"
+  = from_builder.input_field :id, as: :hidden
+  = to_builder.input_field :id, as: :hidden
+  .input-append.input-prepend
+    = link_to raw('<i class="icon-calendar"></i>'), '#',
+      class: "add-on", id: "datepicker-trigger-#{from.id}"
+    = from_builder.input_field :departure_date, as: :hidden
+    = text_field_tag :departure_date,
+      from.departure_date.respond_to?(:to_time) ? from.departure_date.to_time.strftime('%b %d') : '',
+      id: "datepicker-#{from.id}", class: 'datepicker', placeholder: "Date",
+      :'data-datepicker-trigger' => "datepicker-trigger-#{from.id}"
+    = from_location_builder.input_field :address,
+      placeholder: "From:",
+      class: "from #{'autocomplete' if from.first?}",
+      disabled: !from.first?,
+      tabindex: from.position,
+      validate: {length: {minimum: 1}}
+    span.add-on
+      i.icon-arrow-right
+    = to_location_builder.input_field :address,
+      placeholder: "To:",
+      class: 'to autocomplete',
+      tabindex: to.position,
+      validate: {length: {minimum: 1}}
+    - if !from.first?
+      = link_to raw('<i class="icon-minus-sign"></i>'),
+       trip_destination_path(@trip, to, :format => :json),
+       method: :delete, remote: true, 
+       class: 'btn add-on remove-destination'
+    = link_to raw('<i class="icon-plus-sign"></i>'), 
+      trip_destinations_path(@trip, :position => to.position+1),
+      method: :post, remote: true,
+      class: "btn add-on add-destination"

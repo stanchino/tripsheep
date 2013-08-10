@@ -10,7 +10,11 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
+//= require jquery.min
 //= require jquery_ujs
 //= require bootstrap
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require jquery.ui.datepicker
+//= require jquery.ui.autocomplete
 //= require_tree .

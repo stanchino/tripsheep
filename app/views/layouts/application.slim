@@ -20,25 +20,22 @@ html lang="en"
         .container
           .header.pull-left
             a.brand href="/" Logo
-            span powered by TripSheep
           ul.nav.pull-right.header-nav
             = header_nav
 
     .container
+      = bootstrap_flash
       - if @title.present? || content_for?(:title_content)
         .page-title
           - if @title.present?
-            h4.pull-left= @title
-          .pull-right
-            .title-content
-              = yield(:title_content) if content_for?(:title_content)
-      .row
-        .span12
-          = bootstrap_flash
+            h3.pull-left= @title
+          - if content_for?(:title_content)
+            .pull-right
+              .title-content
+                = yield(:title_content) if content_for?(:title_content)
 
-      .row
-        .span12
-          = content_for?(:content) ? yield(:content) : yield
+    .container
+      = content_for?(:content) ? yield(:content) : yield
 
       /! /row
       hr
@@ -47,4 +44,5 @@ html lang="en"
     = yield(:templates) if content_for?(:templates)
     = javascript_include_tag "application"
     = yield(:application_modals) if content_for?(:application_modals)
+    = yield(:scripts)
 

@@ -1,0 +1,74 @@
+- @title = @trip.name
+.tabbable
+  ul.nav.nav-tabs
+    li
+      =link_to "New Trip", root_path
+    li
+      =link_to "My Trips", trips_path
+    li.active
+      =link_to "View Trip", trip_path(@trip), :"data-toggle" => "tab"
+  .tab-content
+    .tab-pane.active
+      .row-fluid
+        .span7
+          .well
+            = render 'form'
+        .span5
+          = gmaps(@map_options)
+
+.row-fluid
+  h3 Trip schedule
+  table.table.table-bordered.table-hover
+    thead
+      th Date
+      th Place
+      th Distance
+      th Time
+      th Schedule
+      th Price
+      th Notes
+    tbody
+      - @trip.intervals.each do |i|
+        tr
+          td
+            =i[:first][:departure_date]
+          td
+            ="#{i[:first].address} - #{i[:last].address}"
+          td 0km
+          td 9h30m
+          td 05:00am-14:30pm
+          td $66
+          td
+            p Stop in ...
+            p Have breakfast ...
+
+  h3 Places
+  table.table.table-bordered.table-hover
+    thead
+      th Date
+      th Place
+      th # nights
+      th Price
+      th Notes
+      th
+    tbody
+      - @trip.destinations.each do |w|
+        tr
+          td
+            =w.arrival
+          td
+            =w.address
+          td 3
+          td $45
+          td
+            p Visit something ...
+            p Buy a ticket for ...
+          td
+            =link_to raw('<span class="icon-remove"></span>'), '#', remote: true
+      
+.row
+  #instructions
+
+= link_to 'Edit', edit_trip_path(@trip)
+'|
+= link_to 'Back', trips_path
